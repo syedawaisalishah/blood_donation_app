@@ -1,8 +1,16 @@
-
 import 'package:blood_donation_app/screens/splashscreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+    apiKey: "AIzaSyBAY0HfRmuEM6oEtN3u_iisJGdEfg2doz8",
+    appId: "XXX",
+    messagingSenderId: "XXX",
+    projectId: "XXX",
+  ));
   runApp(const MyApp());
 }
 
@@ -17,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:Splashscreen(),
+      home: Splashscreen(),
     );
   }
 }

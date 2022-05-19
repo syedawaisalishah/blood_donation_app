@@ -8,6 +8,8 @@ import 'package:blood_donation_app/screens/admin/profile.dart';
 import 'package:blood_donation_app/screens/admin/donors.dart';
 import 'package:blood_donation_app/screens/admin/whodonate.dart';
 import 'package:blood_donation_app/screens/navagationpage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'bloodrequest.dart';
@@ -21,6 +23,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String name='';
+  String phone='';
+
+  void getdata() async {
+    User? user = await FirebaseAuth.instance.currentUser;
+    var var1 = FirebaseFirestore.instance.collection("Users").doc().get();
+    
+  }
+
   final screens = [
     BloodRequest(),
     MainHomePage(),

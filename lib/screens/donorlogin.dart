@@ -1,6 +1,7 @@
 import 'package:blood_donation_app/screens/donorsignup.dart';
 import 'package:blood_donation_app/screens/homepage.dart';
 import 'package:blood_donation_app/screens/reset_password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Loginpage extends StatefulWidget {
@@ -11,6 +12,8 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,7 @@ class _LoginpageState extends State<Loginpage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
-                  obscureText: true,
+                  controller: emailcontroller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.email_outlined),
@@ -46,6 +49,7 @@ class _LoginpageState extends State<Loginpage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
+                  controller: passwordcontroller,
                   obscureText: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -61,6 +65,7 @@ class _LoginpageState extends State<Loginpage> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: GestureDetector(
                   onTap: () {
+                    loginUser();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),
@@ -111,5 +116,12 @@ class _LoginpageState extends State<Loginpage> {
         ),
       ),
     );
+  }
+
+  Future loginUser() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      auth.signInWithEmailAndPassword(email: emailcontroller.text, password: passwordcontroller.text).then((value) => {print('sucess')});
+    } catch (e) {}
   }
 }
